@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>永久音频二维码</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        body { text-align: center; padding: 20px; }
+        #qrcode { margin: 30px auto; }
+    </style>
+</head>
+<body>
+    <h1>扫描收听音频</h1>
+    <div id="qrcode"></div>
+
+    <script>
+        // 这里填写后续获得的永久链接
+        const permanentLink = "https://github.com/Pantheryn/audio-qr";
+        
+        new QRCode(document.getElementById("qrcode"), {
+            text: permanentLink,
+            width: 200,
+            height: 200
+        });
+    </script>
+</body>
+</html>
