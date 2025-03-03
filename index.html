@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>永久音频二维码</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫码即播 - 终极版</title>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
-        body { text-align: center; padding: 20px; }
-        #qrcode { margin: 30px auto; }
+        /* 专业级响应式设计 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        #player {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
-    <h1>扫描收听音频</h1>
-    <div id="qrcode"></div>
+    <div class="container">
+        <div id="player">
+            <h2>扫码播放音频</h2>
+            <audio controls id="audioElement">
+                <source src="https://cdn.jsdelivr.net/gh/Pantheryn/audio-project@main/selfusing.wav" type="audio/wav">
+                您的浏览器不支持音频播放
+            </audio>
+            <div id="qrcode"></div>
+        </div>
+    </div>
 
     <script>
-        // 这里填写后续获得的永久链接
-        const permanentLink = "https://github.com/Pantheryn/audio-project/blob/main/selfusing.wav";
-        
+        // 专业级播放控制
+        const audio = document.getElementById('audioElement');
+        let isPlaying = false;
+
+        // 二维码生成优化
         new QRCode(document.getElementById("qrcode"), {
-            text: permanentLink,
+            text: window.location.href,
             width: 200,
-            height: 200
+            height: 200,
+            colorDark: "#2c3e50",
+            colorLight: "#ecf0f1",
+            correctLevel: QRCode.CorrectLevel.H
         });
+
+        // 播放状态同步
+        audio.addEventListener('play', () => isPlaying = true);
+        audio.addEventListener('pause', () => isPlaying = false);
     </script>
 </body>
 </html>
