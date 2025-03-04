@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>音频播放中</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #2c3e50;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .visualizer {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0.95); }
+        }
+
+        .controls {
+            text-align: center;
+        }
+
+        button {
+            background: #e74c3c;
+            border: none;
+            padding: 12px 30px;
+            color: white;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="visualizer"></div>
+    <div class="controls">
+        <button id="playBtn">点击播放</button>
+    </div>
+
+    <script>
+        // 自动播放逻辑 (兼容各平台)
+        const audio = new Audio('https://cdn.jsdelivr.net/gh/Pantheryn/audio-project@main/selfusing.wav');
+        let hasInteracted = false;
+
+        // 首次触摸/点击处理
+        function handleFirstInteraction() {
+            if (!hasInteracted) {
+                audio.play()
+                    .then(() => {
+                        document.getElementById('playBtn').style.display = 'none';
+                        hasInteracted = true;
+                    })
+                    .catch(e => console.log('自动播放需要用户交互'));
+            }
+        }
+
+        // 交互事件绑定
+        document.addEventListener('click', handleFirstInteraction);
+        document.addEventListener('touchstart', handleFirstInteraction);
+
+        // 按钮控制
+        document.getElementById('playBtn').addEventListener('click', () => {
+            audio.play();
+            document.getElementById('playBtn').style.display = 'none';
+        });
+
+        // 音频结束处理
+        audio.addEventListener('ended', () => {
+            document.getElementById('playBtn').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
