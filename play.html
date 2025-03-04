@@ -25,9 +25,28 @@
             background: linear-gradient(45deg, #3498db, #9b59b6);
             margin-bottom: 30px;
             animation: pulse 2s infinite;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .smiley {
+            position: absolute;
+            font-size: 50px;  /* 调整大小 */
+            font-weight: bold;
+            color: white;  /* 使笑脸符号为白色 */
+            user-select: none; /* 防止文本选中 */
+            animation: pulse-text 2s infinite;
         }
 
         @keyframes pulse {
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0.95); }
+        }
+
+        @keyframes pulse-text {
             0% { transform: scale(0.95); }
             50% { transform: scale(1); }
             100% { transform: scale(0.95); }
@@ -54,7 +73,9 @@
     </style>
 </head>
 <body>
-    <div class="visualizer"></div>
+    <div class="visualizer">
+        <span class="smiley">=）</span>  <!-- 添加笑脸 -->
+    </div>
     <div class="controls">
         <button id="playBtn">点击播放</button>
     </div>
