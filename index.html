@@ -46,11 +46,11 @@
     </div>
 
     <script>
-        // 生成直接播放页的二维码链接
-        const playPageUrl = window.location.href.replace('index.html', 'play.html');
+        // 直接指定播放页面的 URL
+        const playPageUrl = window.location.origin + '/play.html';  // 获取当前网站的域名并指定 play.html 页面
         
         new QRCode(document.getElementById("qrcode"), {
-            text: playPageUrl,
+            text: playPageUrl,  // 生成二维码时使用 playPageUrl
             width: 260,
             height: 260,
             colorDark: "#2c3e50",
