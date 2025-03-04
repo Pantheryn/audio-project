@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
     <div class="container">
@@ -52,6 +54,20 @@
         // 播放状态同步
         audio.addEventListener('play', () => isPlaying = true);
         audio.addEventListener('pause', () => isPlaying = false);
+
+        // 音频元素触摸优化
+            const audio = document.querySelector('audio');
+
+        // 首次触摸自动播放（绕过浏览器限制）
+            document.body.addEventListener('touchstart', function firstTouch() {
+                audio.play().catch(e => console.log('需要用户交互'));
+                this.removeEventListener('touchstart', firstTouch);
+            });
+
+        // 播放/暂停切换
+            document.getElementById('qrcode').addEventListener('click', () => {
+                audio[audio.paused ? 'play' : 'pause']();
+            });
     </script>
 </body>
 </html>
