@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音频播放</title>
+    
+    <!-- 引入二维码生成库 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -16,21 +21,38 @@
         .player {
             text-align: center;
         }
+        #qrcode {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="player">
-        <h2>正在播放音频...</h2>
+        <h2>扫码或点击播放音频</h2>
         <audio id="audio" controls autoplay>
             <source src="https://cdn.jsdelivr.net/gh/Pantheryn/audio-project@main/selfusing.wav" type="audio/wav">
             您的浏览器不支持音频播放。
         </audio>
+        <div id="qrcode"></div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const audio = document.getElementById('audio');
+
+            // 兼容移动端自动播放
             audio.play().catch(error => {
                 console.log('自动播放被阻止，用户需要手动播放', error);
+            });
+
+            // 生成二维码（指向当前页面）
+            new QRCode(document.getElementById("qrcode"), {
+                text: window.location.href,
+                width: 200,
+                height: 200,
+                colorDark: "#2c3e50",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
             });
         });
     </script>
